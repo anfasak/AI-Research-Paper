@@ -1,0 +1,606 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Manage Profile | AI Research</title>
+
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+            color: #1e293b;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #142b4a;
+            position: fixed;
+            left: 0;
+            top: 0;
+            padding: 28px 18px;
+            color: white;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 45px;
+            padding-left: 10px;
+        }
+
+        .logo i {
+            color: #60a5fa;
+            margin-right: 8px;
+        }
+
+        .menu-title {
+            color: #9caec7;
+            font-size: 11px;
+            letter-spacing: 1.5px;
+            margin: 25px 10px 12px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 14px;
+            color: #dbeafe;
+            text-decoration: none;
+            border-radius: 9px;
+            margin-bottom: 7px;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .sidebar a i {
+            width: 18px;
+        }
+
+        /* MAIN CONTENT */
+
+        .app-main {
+            margin-left: 250px;
+            padding: 35px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        /* HEADER */
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+
+        .page-header h2 {
+            font-size: 25px;
+            color: #142b4a;
+            font-weight: 700;
+        }
+
+        .page-header p {
+            font-size: 13px;
+            color: #7b8798;
+            margin-top: 6px;
+        }
+
+        .breadcrumb {
+            font-size: 12px;
+            color: #94a3b8;
+        }
+
+        .breadcrumb span {
+            color: #2563eb;
+        }
+
+        /* PROFILE LAYOUT */
+
+        .profile-layout {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* PROFILE CARD */
+
+        .profile-sidebar {
+            background: white;
+            border: 1px solid #e8edf4;
+            border-radius: 15px;
+            padding: 55px 45px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.04);
+
+            width: 550px;
+            min-height: 480px;
+            margin: 20px auto;
+        }
+
+        .avatar-wrapper {
+            margin-bottom: 18px;
+        }
+
+        .avatar {
+            width: 125px;
+            height: 125px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #eff6ff;
+            background: #eff6ff;
+        }
+
+        .profile-sidebar h3 {
+            color: #142b4a;
+            font-size: 22px;
+            margin-bottom: 7px;
+        }
+
+        .profile-sidebar .email {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .account-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            background: #ecfdf5;
+            color: #059669;
+            padding: 8px 16px;
+            font-size: 12px;
+            border-radius: 20px;
+            margin-top: 18px;
+            font-weight: 600;
+        }
+
+        .account-badge i {
+            font-size: 8px;
+        }
+
+        .sidebar-divider {
+            height: 1px;
+            background: #edf1f5;
+            margin: 30px 0;
+        }
+
+        /* EDIT BUTTON */
+
+        .edit-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 9px;
+            background: #2563eb;
+            color: white;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 7px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: .3s;
+            margin-top: 25px;
+        }
+
+        .edit-btn:hover {
+            background: #142b4a;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* PROFILE MENU */
+
+        .profile-menu {
+            text-align: left;
+        }
+
+        .profile-menu p {
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+        }
+
+        .menu-item {
+            padding: 13px;
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            border-radius: 7px;
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 7px;
+        }
+
+        .menu-item.active {
+            background: #eff6ff;
+            color: #2563eb;
+            font-weight: 600;
+        }
+
+        /* RIGHT CONTENT */
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .content-card {
+            background: white;
+            border: 1px solid #e8edf4;
+            border-radius: 12px;
+            padding: 28px 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.02);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid #edf1f5;
+        }
+
+        .card-header h3 {
+            color: #142b4a;
+            font-size: 17px;
+        }
+
+        .card-header p {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        /* DETAILS GRID */
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px;
+            background: #f8fafc;
+            border: 1px solid #edf1f5;
+            border-radius: 9px;
+            transition: .3s;
+        }
+
+        .detail-item:hover {
+            border-color: #bfdbfe;
+            background: #f5f9ff;
+        }
+
+        .detail-icon {
+            width: 43px;
+            height: 43px;
+            min-width: 43px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #eff6ff;
+            color: #2563eb;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .detail-content {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .detail-content label {
+            color: #94a3b8;
+            font-size: 11px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+        }
+
+        .detail-content span {
+            color: #334155;
+            font-size: 14px;
+            font-weight: 600;
+            overflow-wrap: anywhere;
+        }
+
+        /* ACCOUNT INFORMATION */
+
+        .account-info {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f8fafc;
+            border: 1px solid #edf1f5;
+            border-radius: 9px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .account-left {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+        }
+
+        .account-icon {
+            width: 42px;
+            height: 42px;
+            background: #ecfdf5;
+            color: #059669;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .account-text h4 {
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .account-text p {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 5px;
+        }
+
+        .verified {
+            color: #059669;
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 950px) {
+
+            .profile-sidebar {
+                width: 100%;
+                max-width: 550px;
+                padding: 35px 25px;
+            }
+
+            .profile-menu {
+                display: none;
+            }
+
+            .sidebar-divider {
+                display: none;
+            }
+
+        }
+
+        @media(max-width: 750px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 20px 10px;
+            }
+
+            .logo {
+                font-size: 0;
+                text-align: center;
+                padding: 0;
+            }
+
+            .logo i {
+                font-size: 23px;
+                margin: 0;
+            }
+
+            .sidebar a {
+                justify-content: center;
+                font-size: 0;
+                padding: 14px 5px;
+            }
+
+            .sidebar a i {
+                font-size: 17px;
+            }
+
+            .menu-title {
+                font-size: 0;
+            }
+
+            .app-main {
+                margin-left: 70px;
+                padding: 20px 15px;
+            }
+
+        }
+
+        @media(max-width: 550px) {
+
+            .profile-sidebar {
+                padding: 35px 20px;
+                min-height: 400px;
+            }
+
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="logo">
+            <i class="fas fa-brain"></i> AI RESEARCH
+        </div>
+
+        <p class="menu-title">MAIN MENU</p>
+
+        <a href="/UserHomePageView">
+            <i class="fas fa-house"></i> Dashboard
+        </a>
+
+        <a href="/UploadResearchPaperView">
+            <i class="fas fa-cloud-upload-alt"></i> Upload Paper
+        </a>
+
+        <a href="/AianalysisView">
+            <i class="fas fa-robot"></i> AI Analysis
+        </a>
+
+        <p class="menu-title">ACCOUNT</p>
+
+        <a href="/ManageProfileView" class="active">
+            <i class="fas fa-user"></i> My Profile
+        </a>
+
+        <a href="/SendFeedbackView">
+            <i class="fas fa-comment-dots"></i> Feedback
+        </a>
+
+        <a href="/">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+
+    <main class="app-main">
+
+        <div class="container">
+
+            <!-- PAGE HEADER -->
+
+            <div class="page-header">
+
+                <div>
+                    <h2>My Profile</h2>
+                    <p>View and manage your personal account information.</p>
+                </div>
+
+                <div class="breadcrumb">
+                    Dashboard / <span>Manage Profile</span>
+                </div>
+
+            </div>
+
+
+            <!-- PROFILE LAYOUT -->
+
+            <div class="profile-layout">
+
+                <!-- PROFILE CARD -->
+
+                <div class="profile-sidebar">
+
+                    <div class="avatar-wrapper">
+
+                        <img
+                            src="https://ui-avatars.com/api/?name=Alex+John&background=dbeafe&color=142b4a"
+                            class="avatar"
+                            alt="Profile Image">
+
+                    </div>
+
+                    <h3>{{manageprofile.name}}</h3>
+
+                    <p class="email">
+                        {{manageprofile.email}}
+                    </p>
+
+                    <span class="account-badge">
+                        <i class="fas fa-circle"></i>
+                        Active Account
+                    </span>
+
+                    <!-- EDIT PROFILE BUTTON -->
+
+                    <br>
+
+                    <a href="edituser/{{manageprofile.id}}" class="edit-btn">
+                        <i class="fas fa-user-edit"></i>
+                        Edit Profile
+                    </a>
+
+                    <div class="sidebar-divider"></div>
+
+                    <div class="profile-menu">
+
+                        <p>ACCOUNT INFORMATION</p>
+
+                        <div class="menu-item active">
+                            <i class="fas fa-user"></i>
+                            Personal Information
+                        </div>
+
+                        <div class="menu-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            Academic Details
+                        </div>
+
+                        <div class="menu-item">
+                            <i class="fas fa-shield-halved"></i>
+                            Account Security
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+</body>
+
+</html>

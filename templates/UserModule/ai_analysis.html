@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AI Research Analysis | AI Research Portal</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+body {
+    background: #f5f7fb;
+    color: #1e293b;
+}
+
+/* SIDEBAR - SAME AS HOME PAGE */
+
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #142b4a;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 28px 18px;
+    color: white;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 45px;
+    padding-left: 10px;
+}
+
+.logo i {
+    color: #60a5fa;
+    margin-right: 8px;
+}
+
+.menu-title {
+    color: #9caec7;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin: 25px 10px 12px;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 14px;
+    color: #dbeafe;
+    text-decoration: none;
+    border-radius: 9px;
+    margin-bottom: 7px;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #2563eb;
+    color: white;
+}
+
+.sidebar a i {
+    width: 18px;
+}
+
+/* MAIN CONTENT */
+
+.main-content {
+    margin-left: 250px;
+    padding: 30px;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+}
+
+/* HEADER */
+
+.page-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 28px;
+}
+
+.page-header h2 {
+    font-size: 25px;
+    color: #142b4a;
+}
+
+.page-header p {
+    font-size: 13px;
+    color: #94a3b8;
+    margin-top: 6px;
+}
+
+.breadcrumb {
+    font-size: 12px;
+    color: #94a3b8;
+}
+
+.breadcrumb span {
+    color: #2563eb;
+}
+
+/* INTRO BANNER */
+
+.ai-banner {
+    background: linear-gradient(115deg, #142b4a, #1e40af, #2563eb);
+    padding: 28px 32px;
+    border-radius: 12px;
+    color: white;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+}
+
+.ai-banner h2 {
+    font-size: 23px;
+    margin-bottom: 9px;
+}
+
+.ai-banner p {
+    color: #dbeafe;
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 600px;
+}
+
+.ai-symbol {
+    font-size: 65px;
+    opacity: 0.8;
+    margin-right: 30px;
+}
+
+/* MAIN LAYOUT */
+
+.main-grid {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    gap: 22px;
+    align-items: start;
+}
+
+/* UPLOAD SECTION */
+
+.upload-card,
+.result-card {
+    background: white;
+    border: 1px solid #e8edf4;
+    border-radius: 11px;
+    padding: 25px;
+}
+
+.card-heading {
+    margin-bottom: 23px;
+    padding-bottom: 17px;
+    border-bottom: 1px solid #edf1f5;
+}
+
+.card-heading h3 {
+    color: #142b4a;
+    font-size: 16px;
+}
+
+.card-heading p {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 6px;
+}
+
+/* UPLOAD BOX */
+
+.upload-area {
+    border: 2px dashed #bfdbfe;
+    background: #f8fbff;
+    padding: 35px 15px;
+    border-radius: 9px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.upload-area:hover {
+    background: #eff6ff;
+    border-color: #2563eb;
+}
+
+.upload-area .icon {
+    font-size: 35px;
+    margin-bottom: 12px;
+}
+
+.upload-area h4 {
+    font-size: 13px;
+    color: #142b4a;
+    margin-bottom: 7px;
+}
+
+.upload-area p {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.file-name {
+    margin-top: 12px;
+    color: #2563eb;
+    font-size: 12px;
+    word-break: break-word;
+}
+
+/* FORM */
+
+.form-group {
+    margin-top: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 12px;
+    color: #475569;
+    font-weight: 600;
+    margin-bottom: 9px;
+}
+
+.form-group select {
+    width: 100%;
+    height: 43px;
+    padding: 0 12px;
+    border: 1px solid #dce4ee;
+    border-radius: 7px;
+    outline: none;
+    color: #475569;
+    background: #fafbfc;
+}
+
+.analyse-btn {
+    width: 100%;
+    margin-top: 22px;
+    padding: 13px;
+    border: none;
+    border-radius: 7px;
+    background: #2563eb;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.analyse-btn:hover {
+    background: #142b4a;
+}
+
+/* ANALYSIS RESULT */
+
+.result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 22px;
+}
+
+.result-header h3 {
+    font-size: 17px;
+    color: #142b4a;
+}
+
+.ai-badge {
+    background: #eff6ff;
+    color: #2563eb;
+    padding: 7px 12px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+/* EMPTY STATE */
+
+.empty-state {
+    text-align: center;
+    padding: 65px 20px;
+}
+
+.empty-state .empty-icon {
+    font-size: 55px;
+    margin-bottom: 18px;
+}
+
+.empty-state h3 {
+    color: #142b4a;
+    font-size: 17px;
+    margin-bottom: 8px;
+}
+
+.empty-state p {
+    color: #94a3b8;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+/* RESULT CONTENT */
+
+#analysisResult {
+    display: none;
+}
+
+.paper-name {
+    background: #f8fafc;
+    border: 1px solid #e8edf4;
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+}
+
+.paper-name h4 {
+    color: #142b4a;
+    font-size: 14px;
+    margin-bottom: 6px;
+}
+
+.paper-name p {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+/* SCORE */
+
+.score-section {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    background: #f8fbff;
+    padding: 22px;
+    border: 1px solid #e8edf4;
+    border-radius: 9px;
+    margin-bottom: 22px;
+}
+
+.score-circle {
+    width: 105px;
+    height: 105px;
+    border-radius: 50%;
+    background: conic-gradient(#2563eb 0deg 288deg, #dbeafe 288deg 360deg);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+}
+
+.score-inner {
+    width: 82px;
+    height: 82px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.score-inner h2 {
+    font-size: 25px;
+    color: #142b4a;
+}
+
+.score-inner span {
+    font-size: 10px;
+    color: #94a3b8;
+}
+
+.score-details h4 {
+    font-size: 15px;
+    color: #142b4a;
+    margin-bottom: 7px;
+}
+
+.score-details p {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.6;
+}
+
+/* ANALYSIS BLOCKS */
+
+.analysis-block {
+    border: 1px solid #edf1f5;
+    border-radius: 8px;
+    padding: 17px;
+    margin-bottom: 14px;
+}
+
+.analysis-block h4 {
+    font-size: 14px;
+    color: #142b4a;
+    margin-bottom: 10px;
+}
+
+.analysis-block p,
+.analysis-block li {
+    font-size: 12px;
+    color: #64748b;
+    line-height: 1.8;
+}
+
+.analysis-block ul {
+    padding-left: 20px;
+}
+
+.block-icon {
+    margin-right: 7px;
+}
+
+/* HIGHLIGHTS */
+
+.highlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.highlight {
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.strength {
+    background: #ecfdf5;
+}
+
+.weakness {
+    background: #fff7ed;
+}
+
+.highlight h4 {
+    font-size: 13px;
+    margin-bottom: 8px;
+}
+
+.strength h4 {
+    color: #059669;
+}
+
+.weakness h4 {
+    color: #ea580c;
+}
+
+.highlight p {
+    font-size: 11px;
+    color: #64748b;
+    line-height: 1.7;
+}
+
+/* LOADING */
+
+.loading {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+}
+
+.spinner {
+    width: 42px;
+    height: 42px;
+    border: 4px solid #dbeafe;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: auto auto 18px;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* FOOTER */
+
+.result-footer {
+    margin-top: 20px;
+    padding-top: 18px;
+    border-top: 1px solid #edf1f5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.result-footer p {
+    font-size: 11px;
+    color: #94a3b8;
+}
+
+.download-btn {
+    background: #142b4a;
+    color: white;
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 900px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media(max-width: 750px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+
+    .logo {
+        font-size: 0;
+        text-align: center;
+        padding: 0;
+    }
+
+    .logo i {
+        font-size: 23px;
+        margin: 0;
+    }
+
+    .sidebar a {
+        justify-content: center;
+        font-size: 0;
+        padding: 14px 5px;
+    }
+
+    .sidebar a i {
+        font-size: 17px;
+    }
+
+    .menu-title {
+        font-size: 0;
+    }
+
+    .main-content {
+        margin-left: 70px;
+        padding: 20px 15px;
+    }
+}
+
+@media(max-width: 600px) {
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .ai-banner {
+        padding: 22px;
+    }
+
+    .ai-symbol {
+        display: none;
+    }
+
+    .highlight-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .score-section {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .result-footer {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+        <i class="fas fa-brain"></i> AI RESEARCH
+    </div>
+
+    <p class="menu-title">MAIN MENU</p>
+
+    <a href="/UserHomePageView">
+        <i class="fas fa-house"></i> Dashboard
+    </a>
+
+    <a href="/UploadResearchPaperView">
+        <i class="fas fa-cloud-upload-alt"></i> Upload Paper
+    </a>
+
+    <a href="/AianalysisView" class="active">
+        <i class="fas fa-robot"></i> AI Analysis
+    </a>
+
+    <p class="menu-title">ACCOUNT</p>
+
+    <a href="/ManageProfileView">
+        <i class="fas fa-user"></i> My Profile
+    </a>
+
+    <a href="/SendFeedbackView">
+        <i class="fas fa-comment-dots"></i> Feedback
+    </a>
+
+    <a href="/">
+        <i class="fas fa-sign-out-alt"></i> Logout
+    </a>
+
+</aside>
+
+<!-- MAIN CONTENT -->
+
+<main class="main-content">
+
+<div class="container">
+
+    <!-- HEADER -->
+
+    <div class="page-header">
+        <div>
+            <h2>AI Research Analysis</h2>
+            <p>Analyse your research papers using Artificial Intelligence.</p>
+        </div>
+
+        <div class="breadcrumb">
+            Dashboard / <span>AI Analysis</span>
+        </div>
+    </div>
+
+    <!-- BANNER -->
+
+    <div class="ai-banner">
+        <div>
+            <h2>Intelligent Research Analysis</h2>
+            <p>
+                Get deeper insights into your research papers.
+                Discover research gaps, evaluate methodologies,
+                identify strengths and generate future research directions.
+            </p>
+        </div>
+
+        <div class="ai-symbol">✦</div>
+    </div>
+
+    <!-- MAIN CONTENT -->
+
+    <div class="main-grid">
+
+        <!-- UPLOAD PANEL -->
+
+        <div class="upload-card">
+
+            <div class="card-heading">
+                <h3>Analyse Research Paper</h3>
+                <p>Upload a PDF document to start AI analysis.</p>
+            </div>
+
+            <form id="analysisForm">
+
+                <label for="paperFile" class="upload-area">
+
+                    <div class="icon">📄</div>
+
+                    <h4>Upload Research Paper</h4>
+
+                    <p>Click here to browse PDF files</p>
+
+                    <p style="margin-top:6px;">
+                        PDF format · Maximum 10 MB
+                    </p>
+
+                    <div class="file-name" id="fileName">
+                        No file selected
+                    </div>
+
+                </label>
+
+                <input type="file" id="paperFile"
+                accept=".pdf,application/pdf" hidden required>
+
+                <div class="form-group">
+                    <label>Analysis Type</label>
+
+                    <select id="analysisType">
+                        <option value="Complete Analysis">Complete Research Analysis</option>
+                        <option value="Summary">Research Paper Summary</option>
+                        <option value="Methodology">Methodology Analysis</option>
+                        <option value="Research Gap">Research Gap Detection</option>
+                        <option value="Strengths">Strengths & Weaknesses</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="analyse-btn">
+                    ✦ Start AI Analysis
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- RESULT PANEL -->
+
+        <div class="result-card">
+
+            <div class="result-header">
+                <h3>Analysis Results</h3>
+                <span class="ai-badge">✦ AI Powered</span>
+            </div>
+
+            <!-- EMPTY STATE -->
+
+            <div class="empty-state" id="emptyState">
+
+                <div class="empty-icon">🔬</div>
+
+                <h3>No Analysis Available</h3>
+
+                <p>
+                    Upload your research paper and start the analysis.
+                    AI-generated insights and research recommendations
+                    will appear here.
+                </p>
+
+            </div>
+
+            <!-- LOADING -->
+
+            <div class="loading" id="loading">
+
+                <div class="spinner"></div>
+
+                <h3 style="color:#142b4a;font-size:16px;">
+                    Analysing Your Research Paper
+                </h3>
+
+                <p style="color:#94a3b8;font-size:12px;margin-top:8px;">
+                    Please wait while the analysis is being processed...
+                </p>
+
+            </div>
+
+            <!-- RESULTS -->
+
+            <div id="analysisResult">
+
+                <div class="paper-name">
+                    <h4 id="resultTitle">Research Paper Title</h4>
+                    <p id="resultType">Complete Research Analysis · PDF</p>
+                </div>
+
+                <!-- SCORE -->
+
+                <div class="score-section">
+
+                    <div class="score-circle">
+                        <div class="score-inner">
+                            <h2>80</h2>
+                            <span>OUT OF 100</span>
+                        </div>
+                    </div>
+
+                    <div class="score-details">
+                        <h4>Research Quality Score</h4>
+                        <p>
+                            This is a sample evaluation score.
+                            A real score requires analysis of the
+                            uploaded research paper.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- SUMMARY -->
+
+                <div class="analysis-block">
+                    <h4><span class="block-icon">📋</span> Research Summary</h4>
+                    <p id="summaryText">
+                        The uploaded research paper explores its selected
+                        research topic, objectives and findings.
+                    </p>
+                </div>
+
+                <!-- OBJECTIVES -->
+
+                <div class="analysis-block">
+                    <h4><span class="block-icon">🎯</span> Research Objectives</h4>
+                    <ul id="objectives">
+                        <li>Identify the main research problem.</li>
+                        <li>Evaluate the proposed research approach.</li>
+                        <li>Analyse the findings and contributions.</li>
+                    </ul>
+                </div>
+
+                <!-- METHODOLOGY -->
+
+                <div class="analysis-block">
+                    <h4><span class="block-icon">⚙️</span> Methodology Analysis</h4>
+                    <p id="methodologyText">
+                        The methodology should be evaluated based on
+                        research design, data collection and analysis methods.
+                    </p>
+                </div>
+
+                <!-- STRENGTH AND WEAKNESS -->
+
+                <div class="highlight-grid">
+
+                    <div class="highlight strength">
+                        <h4>✓ Strengths</h4>
+                        <p id="strengthText">
+                            Clear research objectives and structured approach.
+                        </p>
+                    </div>
+
+                    <div class="highlight weakness">
+                        <h4>! Weaknesses</h4>
+                        <p id="weaknessText">
+                            Further validation and additional datasets may be needed.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- RESEARCH GAPS -->
+
+                <div class="analysis-block" style="margin-top:14px;">
+                    <h4><span class="block-icon">🔍</span> Research Gaps</h4>
+                    <p id="gapText">
+                        Further investigation may be required to identify
+                        unexplored areas and limitations in existing research.
+                    </p>
+                </div>
+
+                <!-- FUTURE SUGGESTIONS -->
+
+                <div class="analysis-block">
+                    <h4><span class="block-icon">🚀</span> Future Research Suggestions</h4>
+                    <ul id="futureSuggestions">
+                        <li>Explore advanced research approaches.</li>
+                        <li>Evaluate the solution using larger datasets.</li>
+                        <li>Compare results with alternative methodologies.</li>
+                    </ul>
+                </div>
+
+                <div class="result-footer">
+                    <p>AI-generated sample analysis · Verify findings independently.</p>
+
+                    <button class="download-btn" onclick="window.print()">
+                        ↓ Download Report
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</main>
+
+<!-- JAVASCRIPT -->
+
+<script>
+
+// FILE VALIDATION
+
+const fileInput = document.getElementById('paperFile');
+
+fileInput.addEventListener('change', function() {
+
+    const file = this.files[0];
+
+    if (!file) return;
+
+    if (file.type !== 'application/pdf') {
+        alert('Please upload a PDF file.');
+        this.value = '';
+        document.getElementById('fileName').textContent = 'No file selected';
+        return;
+    }
+
+    if (file.size > 10 * 1024 * 1024) {
+        alert('File size must be below 10 MB.');
+        this.value = '';
+        document.getElementById('fileName').textContent = 'No file selected';
+        return;
+    }
+
+    document.getElementById('fileName').textContent = file.name;
+
+});
+
+
+// ANALYSIS DEMO
+
+document.getElementById('analysisForm').addEventListener('submit', function(e) {
+
+    e.preventDefault();
+
+    const file = fileInput.files[0];
+
+    if (!file) {
+        alert('Please upload a research paper.');
+        return;
+    }
+
+    const analysisType = document.getElementById('analysisType').value;
+
+    document.getElementById('emptyState').style.display = 'none';
+    document.getElementById('analysisResult').style.display = 'none';
+    document.getElementById('loading').style.display = 'block';
+
+    setTimeout(function() {
+
+        document.getElementById('loading').style.display = 'none';
+
+        document.getElementById('analysisResult').style.display = 'block';
+
+        document.getElementById('resultTitle').textContent =
+            file.name.replace(/\.pdf$/i, '');
+
+        document.getElementById('resultType').textContent =
+            analysisType + ' · PDF Document';
+
+    }, 2000);
+
+});
+
+</script>
+
+</body>
+</html>

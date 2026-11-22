@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Category</title>
+
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f6fa;
+            margin: 0;
+            padding: 40px;
+        }
+
+        .container {
+            width: 500px;
+            margin: 40px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: #252b3b;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            margin-top: 8px;
+            border: 1px solid #ddd;
+            border-radius: 7px;
+            box-sizing: border-box;
+        }
+
+        textarea {
+            height: 90px;
+            resize: vertical;
+        }
+
+        img {
+            margin-top: 10px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        button {
+            background: #8066e9;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 7px;
+            cursor: pointer;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #684bd0;
+        }
+
+        .back {
+            display: block;
+            text-align: center;
+            margin-top: 18px;
+            color: #8066e9;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+            <h3>Edit Category</h3>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+
+
+                <div class="add-form">
+
+                    <input type="text"
+                           name="categoryName"
+                           id="categoryInput"
+                           placeholder="Enter category name"
+                           maxlength="60"
+                           required value="{{editcategories.categoryName}}">
+
+                    <textarea name="categoryDescription"
+                              id="categoryDescription"
+                              rows="2" required>{{ editcategories.categoryDescription }}</textarea>
+
+                    <input type="file" name="Image" id="categoryImage"accept="image/*">
+
+                     <input type="int"
+                           name="papercount"
+                           id="papercount"
+                           placeholder="Enter the count of paper"
+                           maxlength="60"
+                           required  value="{{editcategories.papercount}}">       
+
+                    <button type="submit" class="add">
+                        <i class="fa-solid fa-plus"></i>
+                    Save
+                    </button>
+
+                </div>
+
+            </form>
+
+
+    <a href="/ManageCategoriesView" class="back">Back to Categories</a>
+
+</div>
+
+</body>
+</html>

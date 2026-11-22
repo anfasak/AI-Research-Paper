@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Research Portal | Home</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+    background: #f4f7fc;
+    color: #142b4a;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #142b4a;
+    position: fixed;
+    left: 0;
+    top: 0;
+    padding: 28px 18px;
+    color: white;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: 700;
+    margin-bottom: 45px;
+    padding-left: 10px;
+}
+.logo span {
+            color: #93c5fd;
+        }
+
+        
+.logo i {
+    color: #60a5fa;
+    margin-right: 8px;
+}
+
+.menu-title {
+    color: #9caec7;
+    font-size: 11px;
+    letter-spacing: 1.5px;
+    margin: 25px 10px 12px;
+}
+
+.sidebar a {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 13px 14px;
+    color: #dbeafe;
+    text-decoration: none;
+    border-radius: 9px;
+    margin-bottom: 7px;
+    font-size: 14px;
+    transition: .3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+    background: #2563eb;
+    color: white;
+}
+
+.sidebar a i {
+    width: 18px;
+}
+
+/* Main */
+.main {
+    margin-left: 250px;
+    padding: 28px 35px;
+}
+
+/* Topbar */
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.topbar h2 {
+    font-size: 23px;
+}
+
+.topbar p {
+    color: #8492a6;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.profile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.profile img {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-info strong {
+    display: block;
+    font-size: 13px;
+}
+
+.profile-info span {
+    color: #8492a6;
+    font-size: 11px;
+}
+
+/* Welcome Banner */
+.welcome {
+    background: linear-gradient(120deg, #142b4a, #2563eb);
+    color: white;
+    padding: 35px;
+    border-radius: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    overflow: hidden;
+}
+
+.welcome h1 {
+    font-size: 27px;
+    margin-bottom: 12px;
+}
+
+.welcome p {
+    color: #dbeafe;
+    font-size: 14px;
+    line-height: 1.7;
+    max-width: 550px;
+}
+
+.welcome button {
+    margin-top: 20px;
+    background: white;
+    color: #1d4ed8;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 7px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.welcome-icon {
+    font-size: 100px;
+    color: rgba(255,255,255,.18);
+    padding: 20px;
+}
+
+/* Stats */
+.stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 32px;
+}
+
+.stat-card {
+    background: white;
+    padding: 22px;
+    border-radius: 12px;
+    border: 1px solid #e8edf5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.stat-card p {
+    color: #8492a6;
+    font-size: 12px;
+    margin-bottom: 9px;
+}
+
+.stat-card h2 {
+    font-size: 25px;
+}
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    display: grid;
+    place-items: center;
+    border-radius: 12px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 19px;
+}
+
+/* Section */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+}
+
+.section-header h3 {
+    font-size: 18px;
+}
+
+.section-header a {
+    text-decoration: none;
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+/* Quick Actions */
+.actions {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+    margin-bottom: 32px;
+}
+
+.action-card {
+    background: white;
+    padding: 23px;
+    border-radius: 12px;
+    border: 1px solid #e8edf5;
+    transition: .3s;
+    cursor: pointer;
+}
+
+.action-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 22px rgba(20,43,74,.08);
+}
+
+.action-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #2563eb;
+    display: grid;
+    place-items: center;
+    font-size: 19px;
+    margin-bottom: 16px;
+}
+
+.action-card h4 {
+    font-size: 15px;
+    margin-bottom: 8px;
+}
+
+.action-card p {
+    color: #8492a6;
+    font-size: 12px;
+    line-height: 1.6;
+}
+
+/* Recent Papers */
+.paper-section {
+    background: white;
+    padding: 23px;
+    border-radius: 12px;
+    border: 1px solid #e8edf5;
+    margin-bottom: 30px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 550px;
+}
+
+th {
+    text-align: left;
+    color: #8492a6;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 14px 10px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+td {
+    padding: 16px 10px;
+    font-size: 13px;
+    border-bottom: 1px solid #edf0f5;
+}
+
+.status {
+    background: #dcfce7;
+    color: #15803d;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 11px;
+}
+
+.view-btn {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* AI Tools */
+.ai-tools {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.ai-card {
+    background: white;
+    border: 1px solid #e8edf5;
+    border-radius: 12px;
+    padding: 23px;
+    display: flex;
+    gap: 18px;
+    align-items: center;
+}
+
+.ai-card .tool-icon {
+    width: 52px;
+    height: 52px;
+    background: #eff6ff;
+    color: #2563eb;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 22px;
+    flex-shrink: 0;
+}
+
+.ai-card h4 {
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+.ai-card p {
+    color: #8492a6;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+@media(max-width: 1000px) {
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media(max-width: 750px) {
+    .sidebar {
+        width: 70px;
+        padding: 20px 10px;
+    }
+
+    .logo {
+        font-size: 0;
+        text-align: center;
+        padding: 0;
+    }
+
+    .logo i {
+        font-size: 23px;
+        margin: 0;
+    }
+
+    .sidebar a {
+        justify-content: center;
+        font-size: 0;
+        padding: 14px 5px;
+    }
+
+    .sidebar a i {
+        font-size: 17px;
+    }
+
+    .menu-title {
+        font-size: 0;
+    }
+
+    .main {
+        margin-left: 70px;
+        padding: 20px 15px;
+    }
+
+    .welcome {
+        padding: 25px;
+    }
+
+    .welcome-icon {
+        display: none;
+    }
+
+    .actions {
+        grid-template-columns: 1fr;
+    }
+
+    .ai-tools {
+        grid-template-columns: 1fr;
+    }
+
+    .topbar {
+        gap: 10px;
+    }
+
+    .profile-info {
+        display: none;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- Sidebar -->
+<aside class="sidebar">
+
+    <div class="logo">
+        <i class="fas fa-brain"></i> AI <span>RESEARCH</span>
+    </div>
+
+    <p class="menu-title">MAIN MENU</p>
+
+    <a href="#" class="active"><i class="fas fa-house"></i> Dashboard</a>
+    <a href="/UploadResearchPaperView"><i class="fas fa-cloud-upload-alt"></i> Upload Paper</a>
+    <a href="/AianalysisView"><i class="fas fa-robot"></i> AI Analysis</a>
+
+    <p class="menu-title">ACCOUNT</p>
+
+    <a href="/ManageProfileView"><i class="fas fa-user"></i> My Profile</a>
+    <a href="/SendFeedbackView"><i class="fas fa-comment-dots"></i> Feedback</a>
+    <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
+
+</aside>
+
+<!-- Main Content -->
+<main class="main">
+
+    <!-- Topbar -->
+    <div class="topbar">
+        <div>
+            <h2>Dashboard</h2>
+            <p>Welcome back! Here's your research overview.</p>
+        </div>
+
+        <div class="profile">
+            <img src="https://ui-avatars.com/api/?name=User&background=2563eb&color=fff" alt="Profile">
+            <div class="profile-info">
+                <strong>Research User</strong>
+                <span>Student Account</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Welcome Banner -->
+    <section class="welcome">
+        <div>
+            <h1>Explore. Analyze. Discover.</h1>
+            <p>
+                Welcome to your AI-powered research workspace.
+                Upload research papers, discover valuable insights,
+                and make your research journey smarter with AI.
+            </p>
+            <button onclick="location.href='upload_paper.html'">
+                <i class="fas fa-plus"></i> Upload Research Paper
+            </button>
+        </div>
+
+        <div class="welcome-icon">
+            <i class="fas fa-microscope"></i>
+        </div>
+    </section>
+
+    <!-- Statistics -->
+    <div class="stats">
+
+        <div class="stat-card">
+            <div>
+                <p>Total Papers</p>
+                <h2>12</h2>
+            </div>
+            <div class="stat-icon"><i class="fas fa-file-pdf"></i></div>
+        </div>
+
+        <div class="stat-card">
+            <div>
+                <p>Analyzed Papers</p>
+                <h2>08</h2>
+            </div>
+            <div class="stat-icon"><i class="fas fa-chart-line"></i></div>
+        </div>
+
+        <div class="stat-card">
+            <div>
+                <p>Pending Analysis</p>
+                <h2>04</h2>
+            </div>
+            <div class="stat-icon"><i class="fas fa-clock"></i></div>
+        </div>
+
+        <div class="stat-card">
+            <div>
+                <p>Feedback Sent</p>
+                <h2>05</h2>
+            </div>
+            <div class="stat-icon"><i class="fas fa-comment"></i></div>
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="section-header">
+        <h3>Quick Actions</h3>
+    </div>
+
+    <div class="actions">
+
+        <div class="action-card" onclick="location.href='upload_paper.html'">
+            <div class="action-icon"><i class="fas fa-upload"></i></div>
+            <h4>Upload Research Paper</h4>
+            <p>Upload your research documents and manage them in one place.</p>
+        </div>
+
+        <div class="action-card" onclick="location.href='ai_analysis.html'">
+            <div class="action-icon"><i class="fas fa-brain"></i></div>
+            <h4>AI Paper Analysis</h4>
+            <p>Generate summaries and understand research papers using AI.</p>
+        </div>
+
+        <div class="action-card" onclick="location.href='view_papers.html'">
+            <div class="action-icon"><i class="fas fa-folder-open"></i></div>
+            <h4>View My Papers</h4>
+            <p>Access your uploaded papers and previously analyzed documents.</p>
+        </div>
+
+    </div>
+
+    <!-- Recent Papers -->
+    <div class="section-header">
+        <h3>Recent Research Papers</h3>
+        <a href="view_papers.html">View All <i class="fas fa-arrow-right"></i></a>
+    </div>
+
+    <div class="paper-section">
+        <table>
+            <thead>
+                <tr>
+                    <th>Paper Title</th>
+                    <th>Category</th>
+                    <th>Uploaded Date</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                <tr>
+                    <td>Artificial Intelligence in Healthcare</td>
+                    <td>AI & ML</td>
+                    <td>30 Oct 2026</td>
+                    <td><span class="status">Analyzed</span></td>
+                    <td><a href="ai_analysis.html" class="view-btn">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>Deep Learning Applications</td>
+                    <td>Machine Learning</td>
+                    <td>28 Oct 2026</td>
+                    <td><span class="status">Analyzed</span></td>
+                    <td><a href="ai_analysis.html" class="view-btn">View</a></td>
+                </tr>
+
+                <tr>
+                    <td>Cybersecurity and Data Privacy</td>
+                    <td>Cybersecurity</td>
+                    <td>25 Oct 2026</td>
+                    <td><span class="status">Analyzed</span></td>
+                    <td><a href="ai_analysis.html" class="view-btn">View</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- AI Tools -->
+    <div class="section-header">
+        <h3>AI Research Tools</h3>
+    </div>
+
+    <div class="ai-tools">
+
+        <div class="ai-card">
+            <div class="tool-icon"><i class="fas fa-file-alt"></i></div>
+            <div>
+                <h4>Research Summarizer</h4>
+                <p>Get a clear and concise summary of lengthy research papers.</p>
+            </div>
+        </div>
+
+        <div class="ai-card">
+            <div class="tool-icon"><i class="fas fa-lightbulb"></i></div>
+            <div>
+                <h4>Research Gap Finder</h4>
+                <p>Identify research gaps and discover possible future research directions.</p>
+            </div>
+        </div>
+
+    </div>
+
+</main>
+
+</body>
+</html>
+```

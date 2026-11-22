@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Feedback | AI Research Portal</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', sans-serif;
+        }
+
+        /* BODY */
+
+        body {
+            min-height: 100vh;
+            background: #f4f7fc;
+            color: #142b4a;
+        }
+
+        /* ================= SIDEBAR ================= */
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            position: fixed;
+            top: 0;
+            left: 0;
+            background: #142b4a;
+            padding: 28px 18px;
+            color: white;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 21px;
+            font-weight: 700;
+            margin-bottom: 45px;
+            letter-spacing: 1px;
+        }
+
+        .logo i {
+            margin-right: 8px;
+            color: #60a5fa;
+        }
+
+        .logo span {
+            color: #93c5fd;
+        }
+
+        .menu-title {
+            font-size: 11px;
+            color: #94a3b8;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            margin: 25px 0 12px 10px;
+        }
+
+        .sidebar a {
+            display: flex;
+            align-items: center;
+            gap: 13px;
+            padding: 13px 14px;
+            color: #dbeafe;
+            text-decoration: none;
+            font-size: 14px;
+            border-radius: 9px;
+            margin-bottom: 7px;
+            transition: 0.3s;
+        }
+
+        .sidebar a i {
+            width: 20px;
+            font-size: 16px;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        /* ================= MAIN CONTENT ================= */
+
+        .main-content {
+            margin-left: 250px;
+            min-height: 100vh;
+            padding: 25px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* MAIN CONTAINER */
+
+        .feedback-wrapper {
+            width: 100%;
+            max-width: 850px;
+            background: #fff;
+            display: grid;
+            grid-template-columns: 36% 64%;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 12px 45px rgba(20, 43, 74, 0.08);
+        }
+
+        /* LEFT PANEL */
+
+        .left-panel {
+            background: linear-gradient(155deg, #142b4a, #1e40af);
+            color: white;
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .left-panel::before {
+            content: "";
+            position: absolute;
+            width: 230px;
+            height: 230px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 50%;
+            top: -100px;
+            right: -100px;
+        }
+
+        .left-panel::after {
+            content: "";
+            position: absolute;
+            width: 170px;
+            height: 170px;
+            border: 1px solid rgba(255, 255, 255, 0.10);
+            border-radius: 50%;
+            bottom: 70px;
+            left: -100px;
+        }
+
+        .brand {
+            font-size: 17px;
+            font-weight: 700;
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .brand span {
+            color: #93c5fd;
+        }
+
+        .left-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .feedback-icon {
+            width: 58px;
+            height: 58px;
+            background: rgba(255, 255, 255, 0.13);
+            border-radius: 13px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 27px;
+            margin-bottom: 25px;
+        }
+
+        .left-content h2 {
+            font-size: 27px;
+            line-height: 1.4;
+            margin-bottom: 15px;
+        }
+
+        .left-content p {
+            font-size: 13px;
+            color: #dbeafe;
+            line-height: 1.9;
+        }
+
+        .left-footer {
+            position: relative;
+            z-index: 1;
+            color: #bfdbfe;
+            font-size: 11px;
+        }
+
+        /* RIGHT PANEL */
+
+        .right-panel {
+            padding: 45px 42px;
+        }
+
+        .top-label {
+            color: #2563eb;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+        }
+
+        .heading h1 {
+            font-size: 25px;
+            color: #142b4a;
+            margin-bottom: 8px;
+        }
+
+        .heading p {
+            color: #94a3b8;
+            font-size: 13px;
+            line-height: 1.7;
+        }
+
+        /* FORM */
+
+        .feedback-form {
+            margin-top: 32px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 14px;
+        }
+
+        /* STAR RATING */
+
+        .rating-container {
+            background: #f8faff;
+            border: 1px solid #e8edf5;
+            border-radius: 10px;
+            padding: 22px 15px;
+            text-align: center;
+        }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+
+        .stars span {
+            font-size: 35px;
+            color: #d6deea;
+            cursor: pointer;
+            transition: 0.25s;
+        }
+
+        .stars span:hover {
+            transform: scale(1.18);
+        }
+
+        .stars span.active {
+            color: #f5a623;
+        }
+
+        .rating-label {
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 12px;
+            font-weight: 500;
+        }
+
+        /* DESCRIPTION */
+
+        .description-group {
+            margin-top: 25px;
+        }
+
+        textarea {
+            width: 100%;
+            height: 145px;
+            padding: 15px;
+            border: 1px solid #dce4ee;
+            border-radius: 9px;
+            resize: vertical;
+            outline: none;
+            font-size: 13px;
+            color: #334155;
+            background: #fafbfd;
+            line-height: 1.7;
+            transition: 0.2s;
+        }
+
+        textarea::placeholder {
+            color: #a3afbf;
+        }
+
+        textarea:focus {
+            border-color: #2563eb;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.07);
+        }
+
+        .char-count {
+            text-align: right;
+            color: #94a3b8;
+            font-size: 11px;
+            margin-top: 7px;
+        }
+
+        /* BUTTONS */
+
+        .button-group {
+            display: flex;
+            gap: 12px;
+            margin-top: 27px;
+        }
+
+        .clear-btn {
+            padding: 13px 22px;
+            border: 1px solid #dce4ee;
+            background: white;
+            color: #64748b;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .submit-btn {
+            flex: 1;
+            padding: 13px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .submit-btn:hover {
+            background: #142b4a;
+            transform: translateY(-2px);
+        }
+
+        /* SUCCESS MESSAGE */
+
+        .success-message {
+            display: none;
+            background: #ecfdf5;
+            color: #059669;
+            border: 1px solid #bbf7d0;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            margin-top: 18px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 900px) {
+
+            .sidebar {
+                width: 70px;
+                padding: 28px 10px;
+            }
+
+            .logo {
+                font-size: 0;
+                text-align: center;
+            }
+
+            .logo i {
+                font-size: 23px;
+                margin: 0;
+            }
+
+            .logo span,
+            .menu-title,
+            .sidebar a span {
+                display: none;
+            }
+
+            .sidebar a {
+                justify-content: center;
+                padding: 14px 5px;
+            }
+
+            .sidebar a i {
+                font-size: 18px;
+                width: auto;
+            }
+
+            .main-content {
+                margin-left: 70px;
+            }
+        }
+
+        @media(max-width: 700px) {
+
+            .feedback-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .left-panel {
+                padding: 28px;
+                gap: 30px;
+            }
+
+            .left-content h2 {
+                font-size: 23px;
+            }
+
+            .right-panel {
+                padding: 30px 23px;
+            }
+        }
+
+        @media(max-width: 400px) {
+
+            .stars {
+                gap: 7px;
+            }
+
+            .stars span {
+                font-size: 29px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+
+            .clear-btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ================= SIDEBAR ================= -->
+
+    <div class="sidebar">
+
+        <div class="logo">
+            <i class="fas fa-brain"></i>
+            AI <span>RESEARCH</span>
+        </div>
+
+        <div class="menu-title">MAIN MENU</div>
+
+        <a href="/UserHomePageView">
+            <i class="fas fa-house"></i>
+            <span>Dashboard</span>
+        </a>
+
+        <a href="/UploadResearchPaperView">
+            <i class="fas fa-cloud-arrow-up"></i>
+            <span>Upload Research Paper</span>
+        </a>
+
+        <a href="/AianalysisView">
+            <i class="fas fa-chart-line"></i>
+            <span>AI Research Analysis</span>
+        </a>
+
+        <div class="menu-title">ACCOUNT</div>
+
+        <a href="/ManageProfileView">
+            <i class="fas fa-user"></i>
+            <span>My Profile</span>
+        </a>
+
+        <a href="/SendFeedbackView" class="active">
+            <i class="fas fa-comment-dots"></i>
+            <span>Send Feedback</span>
+        </a>
+
+        <a href="/">
+            <i class="fas fa-right-from-bracket"></i>
+            <span>Logout</span>
+        </a>
+
+    </div>
+
+
+    <!-- ================= MAIN CONTENT ================= -->
+
+    <div class="main-content">
+
+        <div class="feedback-wrapper">
+
+            <!-- LEFT INFORMATION PANEL -->
+
+            <div class="left-panel">
+
+                <div class="brand">
+                    AI<span>RESEARCH</span>
+                </div>
+
+                <div class="left-content">
+
+                    <div class="feedback-icon">✉</div>
+
+                    <h2>Your Opinion<br>Drives Innovation.</h2>
+
+                    <p>
+                        We believe every suggestion makes a difference.
+                        Share your experience and help us build a
+                        better AI research platform.
+                    </p>
+
+                </div>
+
+                <div class="left-footer">
+                    © 2026 AI Research Portal
+                </div>
+
+            </div>
+
+
+            <!-- FEEDBACK FORM -->
+
+            <div class="right-panel">
+
+                <div class="heading">
+
+                    <div class="top-label">USER EXPERIENCE</div>
+
+                    <h1>Send Feedback</h1>
+
+                    <p>
+                        We'd love to hear your thoughts.
+                        Take a moment to share your experience.
+                    </p>
+
+                </div>
+
+                <form class="feedback-form" id="feedbackForm" method="post">
+
+                    {% csrf_token %}
+
+                    <!-- RATING -->
+                    <div class="form-group">
+
+                        <label class="form-label">
+                            How would you rate your experience?
+                        </label>
+
+                        <div class="rating-container">
+
+                            <div class="stars" id="stars">
+
+                                <span data-value="1">★</span>
+                                <span data-value="2">★</span>
+                                <span data-value="3">★</span>
+                                <span data-value="4">★</span>
+                                <span data-value="5">★</span>
+
+                            </div>
+
+                            <input type="hidden" name="Rating" id="Rating" required>
+
+                            <div class="rating-label" id="ratingText">
+                                Select a rating from 1 to 5
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- DESCRIPTION -->
+
+                    <div class="description-group">
+
+                        <label class="form-label">
+                            Tell us about your experience
+                        </label>
+
+                        <textarea id="description" maxlength="500"
+                            placeholder="Write your feedback, suggestions or ideas here..." name="feedback"
+                            required></textarea>
+
+                        <div class="char-count">
+                            <span id="charCount">0</span> / 500 characters
+                        </div>
+
+                    </div>
+
+
+
+
+                    <!-- BUTTONS -->
+
+                    <div class="button-group">
+
+                        <button type="reset" class="clear-btn">
+                            Clear
+                        </button>
+
+                        <button type="submit" class="submit-btn">
+                            Submit Feedback &nbsp; →
+                        </button>
+
+                    </div>
+
+                    <div class="success-message" id="successMessage">
+                        ✓ Thank you! Your feedback has been submitted successfully.
+                    </div>
+
+                </form>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script>
+
+        let selectedRating = 0;
+
+        const stars = document.querySelectorAll('#stars span');
+
+        const ratingText = document.getElementById('ratingText');
+
+        const ratingInput = document.getElementById('Rating');
+
+        const labels = [
+            'Poor',
+            'Fair',
+            'Good',
+            'Very Good',
+            'Excellent'
+        ];
+
+
+        // STAR RATING
+
+        stars.forEach(star => {
+
+            star.addEventListener('click', function () {
+
+                selectedRating = Number(this.dataset.value);
+
+                ratingInput.value = selectedRating;
+
+                updateStars();
+
+            });
+
+        });
+
+
+        // UPDATE STARS
+
+        function updateStars() {
+
+            stars.forEach(star => {
+
+                star.classList.toggle(
+                    'active',
+                    Number(star.dataset.value) <= selectedRating
+                );
+
+            });
+
+            ratingText.textContent = selectedRating
+                ? labels[selectedRating - 1]
+                : 'Select a rating from 1 to 5';
+
+        }
+
+
+        // CHARACTER COUNT
+
+        const description = document.getElementById('description');
+
+        description.addEventListener('input', function () {
+
+            document.getElementById('charCount').textContent =
+                this.value.length;
+
+        });
+
+
+        // FORM SUBMISSION
+
+        document.getElementById('feedbackForm')
+            .addEventListener('submit', function (e) {
+
+                // Check rating
+
+                if (selectedRating === 0) {
+
+                    e.preventDefault();
+
+                    alert('Please select your rating.');
+
+                    return;
+
+                }
+
+                // Pass rating to Django
+
+                ratingInput.value = selectedRating;
+
+                // Allow normal form submission to Django
+
+            });
+
+
+        // RESET FORM
+
+        document.getElementById('feedbackForm')
+            .addEventListener('reset', function () {
+
+                selectedRating = 0;
+
+                ratingInput.value = '';
+
+                updateStars();
+
+                document.getElementById('charCount').textContent = '0';
+
+                document.getElementById('successMessage').style.display = 'none';
+
+            });
+
+    </script>
+</body>
+
+</html>
